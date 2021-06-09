@@ -1,0 +1,31 @@
+/* tslint:disable */
+/* eslint-disable */
+
+import React, { FunctionComponent } from 'react';
+import { ViewProps } from 'react-native';
+import { Svg, GProps, Path } from 'react-native-svg';
+import { getIconColor } from './helper';
+
+interface Props extends GProps, ViewProps {
+  size?: number;
+  color?: string | string[];
+}
+
+let Iconshujuliebiao1: FunctionComponent<Props> = ({ size, color, ...rest }) => {
+  return (
+    <Svg viewBox="0 0 1228 1024" width={size} height={size} {...rest}>
+      <Path
+        d="M1164.561067 234.2912c15.735467 0 28.672 11.844267 30.481066 27.101867l0.2048 3.584v709.9392c0 13.2096-11.707733 24.132267-26.8288 25.736533l-3.857066 0.2048H60.757333c-15.633067 0-28.535467-9.898667-30.446933-22.698667l-0.238933-3.242666v-709.973334a30.651733 30.651733 0 0 1 61.098666-3.549866l0.238934 3.584v122.606933h306.5856V326.314667a30.651733 30.651733 0 0 1 61.1328-3.584l0.238933 3.584v61.303466h306.5856V326.314667a30.651733 30.651733 0 0 1 61.1328-3.584l0.2048 3.584v61.303466h306.5856l0.034133-122.606933c0-16.964267 13.7216-30.685867 30.651734-30.685867zM397.994667 724.8896H91.374933v224.085333h306.653867v-224.085333z m367.957333 0h-306.619733v224.085333h306.653866v-224.085333z m367.957333 0h-306.653866l0.034133 224.085333h306.619733v-224.085333z m-735.914666-285.3888H91.4432v224.0512h306.5856v-224.0512z m367.957333 0h-306.5856v224.0512h306.5856v-224.0512z m367.957333 0h-306.619733v224.0512h306.5856l0.034133-224.0512zM1072.605867 19.6608a91.989333 91.989333 0 0 1 0 183.978667H152.712533a91.989333 91.989333 0 0 1 0-183.978667h919.893334z"
+        fill={getIconColor(color, 0, '#5A6979')}
+      />
+    </Svg>
+  );
+};
+
+Iconshujuliebiao1.defaultProps = {
+  size: 18,
+};
+
+Iconshujuliebiao1 = React.memo ? React.memo(Iconshujuliebiao1) : Iconshujuliebiao1;
+
+export default Iconshujuliebiao1;

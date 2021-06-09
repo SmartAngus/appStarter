@@ -1,0 +1,31 @@
+/* tslint:disable */
+/* eslint-disable */
+
+import React, { FunctionComponent } from 'react';
+import { ViewProps } from 'react-native';
+import { Svg, GProps, Path } from 'react-native-svg';
+import { getIconColor } from './helper';
+
+interface Props extends GProps, ViewProps {
+  size?: number;
+  color?: string | string[];
+}
+
+let Iconzhongmingming: FunctionComponent<Props> = ({ size, color, ...rest }) => {
+  return (
+    <Svg viewBox="0 0 1024 1024" width={size} height={size} {...rest}>
+      <Path
+        d="M1020.743084 510.713424v408.274324a102.388545 102.388545 0 0 1-102.068581 102.004588H102.125855A102.388545 102.388545 0 0 1 0.057274 918.923755V102.375107A102.388545 102.388545 0 0 1 102.125855 0.434511h357.208037c30.652571 0 51.066287 20.413716 51.066287 51.002295 0 30.652571-20.477709 51.066287-51.066287 51.066286H153.128149c-30.588578 0-51.002294 20.413716-51.002294 51.002295v714.480067c0 30.588578 20.413716 51.002294 51.002294 51.002294h714.480067c30.652571 0 51.066287-20.413716 51.066287-51.002294V510.713424c0-30.652571 20.413716-51.066287 51.002294-51.066287 30.588578 0 51.002294 20.413716 51.002295 51.066287zM1010.50423 10.54538c20.413716 25.533143 15.358282 61.241149-10.238855 81.654865l-561.345199 561.3452c-15.294289 25.597136-45.882867 35.771998-71.416011 20.477709-25.533143-15.358282-35.708005-45.94686-20.477709-71.480004 5.119427-5.119427 10.238855-15.358282 20.477709-20.413716L923.729938 20.784235c20.477709-25.533143 61.241149-25.533143 86.774292-10.238855z"
+        fill={getIconColor(color, 0, '#096DD9')}
+      />
+    </Svg>
+  );
+};
+
+Iconzhongmingming.defaultProps = {
+  size: 18,
+};
+
+Iconzhongmingming = React.memo ? React.memo(Iconzhongmingming) : Iconzhongmingming;
+
+export default Iconzhongmingming;

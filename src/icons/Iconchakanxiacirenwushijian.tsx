@@ -1,0 +1,35 @@
+/* tslint:disable */
+/* eslint-disable */
+
+import React, { FunctionComponent } from 'react';
+import { ViewProps } from 'react-native';
+import { Svg, GProps, Path } from 'react-native-svg';
+import { getIconColor } from './helper';
+
+interface Props extends GProps, ViewProps {
+  size?: number;
+  color?: string | string[];
+}
+
+let Iconchakanxiacirenwushijian: FunctionComponent<Props> = ({ size, color, ...rest }) => {
+  return (
+    <Svg viewBox="0 0 1024 1024" width={size} height={size} {...rest}>
+      <Path
+        d="M166.229333 197.290667c19.057778 0 34.531556 15.473778 34.531556 34.531555v683.804445h615.424V542.72a34.531556 34.531556 0 1 1 69.063111 0v407.552a34.531556 34.531556 0 0 1-34.531556 34.531556H166.229333a34.531556 34.531556 0 0 1-34.531555-34.531556V231.822222c0-19.057778 15.416889-34.531556 34.531555-34.531555z m393.671111 153.315555l158.264889 158.151111a31.630222 31.630222 0 0 1 0 44.771556l-158.208 158.208a31.630222 31.630222 0 1 1-44.771555-44.714667l104.220444-104.220444H316.074667a31.630222 31.630222 0 1 1 0-63.260445h303.331555L515.185778 395.320889a31.573333 31.573333 0 0 1 0-44.714667 31.630222 31.630222 0 0 1 44.771555 0z"
+        fill={getIconColor(color, 0, '#096DD9')}
+      />
+      <Path
+        d="M278.812444 251.050667h457.955556a34.531556 34.531556 0 0 0 34.531556-33.109334v-35.271111a103.594667 103.594667 0 0 0-103.594667-102.912H610.360889a108.430222 108.430222 0 0 0-207.189333 0h-55.296a103.594667 103.594667 0 0 0-103.537778 103.594667v34.588444a34.531556 34.531556 0 0 0 34.474666 33.109334z m69.063112-102.229334h86.357333a34.531556 34.531556 0 0 0 34.531555-34.531555 39.367111 39.367111 0 0 1 78.051556 0c0 19.114667 15.473778 34.531556 34.531556 34.531555h86.357333c18.773333 0 34.133333 15.075556 34.531555 33.848889H313.344a34.531556 34.531556 0 0 1 34.531556-33.848889z"
+        fill={getIconColor(color, 1, '#096DD9')}
+      />
+    </Svg>
+  );
+};
+
+Iconchakanxiacirenwushijian.defaultProps = {
+  size: 18,
+};
+
+Iconchakanxiacirenwushijian = React.memo ? React.memo(Iconchakanxiacirenwushijian) : Iconchakanxiacirenwushijian;
+
+export default Iconchakanxiacirenwushijian;

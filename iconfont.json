@@ -1,0 +1,10 @@
+{
+    "symbol_url": "http://at.alicdn.com/t/font_1507378_sfkdg7rhmfa.js",
+    "use_typescript": true,
+    "save_dir": "./src/icons",
+    "generate_mode": "all-in-one",
+    "trim_icon_prefix": "",
+    "default_icon_size": 18,
+    "local_svgs": "./localSvgs",
+    "summary_component_name": "IconFont"
+}
