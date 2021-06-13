@@ -24,7 +24,7 @@ const connector = connect(mapStateToProps);
 
 type ModelState = ConnectedProps<typeof connector>;
 
-interface ChannelItemProps {
+interface ChannelItemProps extends ModelState{
   item: IChannel;
   onPress: (data: IChannel) => void;
 }
@@ -68,6 +68,8 @@ const ChannelItem = ({item, onPress}: ChannelItemProps) => {
 class Channels extends React.Component<ModelState> {
   onPress = (data: IChannel) => {
     console.log(data);
+    const {navigation} = this.props;
+    navigation.nav
   };
   renderItem = ({item}: ListRenderItemInfo<IChannel>) => {
     return <ChannelItem item={item} onPress={this.onPress} />;

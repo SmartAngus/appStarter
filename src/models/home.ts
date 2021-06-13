@@ -1,6 +1,6 @@
 import {Effect, Model, SubscriptionsMapObject} from 'dva-core-ts';
 import {Reducer} from 'redux';
-import {CHANNEL_URL, GUESS_URL} from '@/config/apis';
+import {CHANNEL_URL, GUESS_URL} from '@/apis';
 import axios from 'axios';
 
 interface HomeState {

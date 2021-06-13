@@ -15,8 +15,11 @@ module.exports = {
           '@/utils': './src/utils',
           '@/icons': './src/icons',
           '@/config': './src/config',
+          '@/apis': './src/apis',
+          '@/app': './src/app',
         },
       },
     ],
+    ['import', {libraryName: 'antd-mobile', style: 'css'}], // `style: true` 会加载 less 文件
   ],
 };

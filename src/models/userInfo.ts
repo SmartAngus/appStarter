@@ -1,56 +1,44 @@
-import {Effect, Model, SubscriptionsMapObject} from 'dva-core-ts';
+import {Model, Effect, SubscriptionsMapObject} from 'dva-core-ts';
 import {Reducer} from 'redux';
-import {load} from '@/utils/storage';
+import Toast from 'react-native-root-toast';
+import {goBack} from '@/utils/index';
+import storage, {load} from '@/utils/storage';
+import {login} from '@/apis';
 
-interface UserInfo {
-  id: string | undefined;
-  name: string | undefined;
-  roles: string | undefined;
-  token: string | undefined;
-  age: number | undefined;
+export interface IUser {
+  username: string;
+  password: string;
+  avatar?: string;
 }
 
-interface UserInfoState {
-  account: UserInfo;
+export interface UserModelState {
+  user?: IUser;
 }
 
-interface UserInfoModel extends Model {
+export interface UserModel extends Model {
   namespace: 'userInfo';
-  state: UserInfoState;
+  state: UserModelState;
   effects: {
-    loadUserInfo: Effect;
+    login: Effect;
+    logout: Effect;
+    loadStorage: Effect;
   };
   reducers: {
-    setState: Reducer<UserInfoState>;
+    setState: Reducer<UserModelState>;
   };
   subscriptions: SubscriptionsMapObject;
 }
 
-const initialState = {
-  account: {
-    id: undefined,
-    name: undefined,
-    roles: undefined,
-    token: undefined,
-    age: undefined,
+const initalState = {
+  user: {
+    username: '',
+    password: '',
   },
 };
 
-const userInfoModel: UserInfoModel = {
+const userModel: UserModel = {
   namespace: 'userInfo',
-  state: initialState,
-  effects: {
-    *loadUserInfo(_, {put, call}) {
-      // 从localstorage获取用户信息
-      const user = yield call(load, {key: 'user'});
-      yield put({
-        type: 'setState',
-        payload: {
-          user,
-        },
-      });
-    },
-  },
+  state: initalState,
   reducers: {
     setState(state, {payload}) {
       return {
@@ -59,7 +47,73 @@ const userInfoModel: UserInfoModel = {
       };
     },
   },
-  subscriptions: {},
+  effects: {
+    *login({payload}, {call, put}) {
+      console.log('>>>>payload', payload);
+      try {
+        const res = yield call(login, payload);
+        const {data, code, msg} = res.data;
+        console.log(data, code, msg);
+        if (code === 200) {
+          yield put({
+            type: 'setState',
+            payload: {
+              user: data,
+            },
+          });
+          storage.save({
+            key: 'user',
+            data,
+          });
+          goBack();
+        } else {
+          Toast.show(msg, {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.CENTER,
+            shadow: true,
+            animation: true,
+          });
+          console.log(msg);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    *logout(_, {put}) {
+      yield put({
+        type: 'setState',
+        payload: {
+          user: undefined,
+        },
+      });
+      storage.save({
+        key: 'user',
+        data: null,
+      });
+    },
+    *loadStorage(_, {put, call}) {
+      try {
+        const user = yield call(load, {key: 'user'});
+        console.log('>>>user', user);
+        yield put({
+          type: 'setState',
+          payload: {
+            user,
+          },
+        });
+      } catch (error) {
+        console.log('保存用户信息错误', error);
+      }
+    },
+  },
+  subscriptions: {
+    setup({dispatch}) {
+      console.log('>>>>>subscriptions');
+      dispatch({
+        type: 'loadStorage',
+      });
+    },
+  },
 };
 
-export default userInfoModel;
+export default userModel;

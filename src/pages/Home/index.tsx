@@ -57,9 +57,14 @@ class Home extends React.Component<IHomeProps> {
     );
   };
   render() {
+    const {navigation} = this.props;
     return (
       <SafeAreaView>
-        <Channels />
+        <View>
+          <Text>item</Text>
+          <Text>item</Text>
+          <Text>item</Text>
+        </View>
       </SafeAreaView>
     );
   }

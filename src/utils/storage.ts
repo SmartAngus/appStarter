@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import Storage, {LoadParams} from 'react-native-storage';
 
 const storage = new Storage({
@@ -12,6 +12,8 @@ const storage = new Storage({
   // 数据过期时间，默认一整天（1000 * 3600 * 24 毫秒），设为null则永不过期
   defaultExpires: 1000 * 3600 * 24,
 
+  // defaultExpires: 1000 * 60,
+
   // 读写时在内存中缓存数据。默认启用。
   enableCache: true,
 
@@ -21,10 +23,12 @@ const storage = new Storage({
   // 如果storage中没有相应数据，或数据已过期，
   // 则会调用相应的sync方法，无缝返回最新数据。
   // sync方法的具体说明会在后文提到
-  sync: require('你可以另外写一个文件专门处理sync'),
+  // sync: require('你可以另外写一个文件专门处理sync'),
+  sync: {},
 });
 
 export const save = (key: string, data: object) => {
+  console.log('>>>>save', key, data);
   storage.save({
     key,
     data,
@@ -32,6 +36,7 @@ export const save = (key: string, data: object) => {
 };
 
 export const load = (params: LoadParams) => {
+  console.log('load===', params);
   return storage.load(params);
 };
 

@@ -22,7 +22,7 @@ interface IBottomTabsProps {
 
 function getHeaderTitle(route: any) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'HomeTabs';
-  console.log('routeName===', routeName);
+  console.log('routeName1===', routeName);
   switch (routeName) {
     case 'HomeTabs':
       return '首页';

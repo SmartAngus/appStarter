@@ -12,7 +12,7 @@ class Account extends React.Component<IAccountProps> {
     return (
       <View>
         <Text>Account</Text>
-        <Login/>
+        <Login />
       </View>
     );
   }

@@ -11,9 +11,13 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		5AD0F5D977674EA08C2A5A77 /* antfill.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C565BBC9B314DA78E172F24 /* antfill.ttf */; };
+		925DB10026745E680052C2B3 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 925DB0FF26745E680052C2B3 /* Launch Screen.storyboard */; };
+		92F79A202675A5EB001FC45D /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F79A1F2675A5EB001FC45D /* File.swift */; };
+		92F79A242675B440001FC45D /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 92F79A232675B440001FC45D /* Config.xcconfig */; };
 		AC44552CFAB26F70EF3C4065 /* libPods-appStarter-appStarterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED454070D6FB816B1CC63070 /* libPods-appStarter-appStarterTests.a */; };
 		CFCC5070CC9BA4BAFA1F91CD /* libPods-appStarter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 099D0985200A7A574916CB37 /* libPods-appStarter.a */; };
+		E7A32785C6964B69AE3185AF /* antoutline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 797E141D16A047BE81195FBF /* antoutline.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +41,13 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = appStarter/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = appStarter/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = appStarter/main.m; sourceTree = "<group>"; };
+		2C565BBC9B314DA78E172F24 /* antfill.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = antfill.ttf; path = "../node_modules/@ant-design/icons-react-native/fonts/antfill.ttf"; sourceTree = "<group>"; };
 		45E497F601EBFDD0BB9DBA27 /* Pods-appStarter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appStarter.debug.xcconfig"; path = "Target Support Files/Pods-appStarter/Pods-appStarter.debug.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = appStarter/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		797E141D16A047BE81195FBF /* antoutline.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = antoutline.ttf; path = "../node_modules/@ant-design/icons-react-native/fonts/antoutline.ttf"; sourceTree = "<group>"; };
+		925DB0FF26745E680052C2B3 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		92F79A1E2675A5EA001FC45D /* appStarter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "appStarter-Bridging-Header.h"; sourceTree = "<group>"; };
+		92F79A1F2675A5EB001FC45D /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		92F79A232675B440001FC45D /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		BE942F62634A5259376F7903 /* Pods-appStarter-appStarterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appStarter-appStarterTests.release.xcconfig"; path = "Target Support Files/Pods-appStarter-appStarterTests/Pods-appStarter-appStarterTests.release.xcconfig"; sourceTree = "<group>"; };
 		DF68780975B7FCC60649A80D /* Pods-appStarter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appStarter.release.xcconfig"; path = "Target Support Files/Pods-appStarter/Pods-appStarter.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -90,7 +99,6 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = appStarter;
@@ -116,12 +124,17 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				92F79A232675B440001FC45D /* Config.xcconfig */,
+				92F79A1F2675A5EB001FC45D /* File.swift */,
+				925DB0FF26745E680052C2B3 /* Launch Screen.storyboard */,
 				13B07FAE1A68108700A75B9A /* appStarter */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* appStarterTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				A02055277A3D4B1E9642B25E /* Pods */,
+				8CBFCE681A284DBDB013DE09 /* Resources */,
+				92F79A1E2675A5EA001FC45D /* appStarter-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -137,6 +150,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8CBFCE681A284DBDB013DE09 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2C565BBC9B314DA78E172F24 /* antfill.ttf */,
+				797E141D16A047BE81195FBF /* antoutline.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		A02055277A3D4B1E9642B25E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +167,6 @@
 				F8D056A41BEDBDA39958120E /* Pods-appStarter-appStarterTests.debug.xcconfig */,
 				BE942F62634A5259376F7903 /* Pods-appStarter-appStarterTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -185,6 +206,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				D71ECEF7691175B66539EDA4 /* [CP] Embed Pods Frameworks */,
 				B6102F6EAD28552E344D14E6 /* [CP] Copy Pods Resources */,
+				92F79A2B2675B4F6001FC45D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -208,7 +230,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -243,8 +265,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				92F79A242675B440001FC45D /* Config.xcconfig in Resources */,
+				5AD0F5D977674EA08C2A5A77 /* antfill.ttf in Resources */,
+				925DB10026745E680052C2B3 /* Launch Screen.storyboard in Resources */,
+				E7A32785C6964B69AE3185AF /* antoutline.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +328,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-appStarter-appStarterTests/Pods-appStarter-appStarterTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		92F79A2B2675B4F6001FC45D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${SRCROOT}/../node_modules/react-native-config/ios/ReactNativeConfig/BuildXCConfig.rb\" \"${SRCROOT}/..\" \"${SRCROOT}/tmp.xcconfig\"\n";
 		};
 		B6102F6EAD28552E344D14E6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -412,6 +454,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				92F79A202675A5EB001FC45D /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,6 +474,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F8D056A41BEDBDA39958120E /* Pods-appStarter-appStarterTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -458,6 +502,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BE942F62634A5259376F7903 /* Pods-appStarter-appStarterTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = appStarterTests/Info.plist;
@@ -498,6 +543,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = appStarter;
+				SWIFT_OBJC_BRIDGING_HEADER = "appStarter-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -523,6 +569,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = appStarter;
+				SWIFT_OBJC_BRIDGING_HEADER = "appStarter-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -530,6 +577,7 @@
 		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92F79A232675B440001FC45D /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -595,6 +643,7 @@
 		};
 		83CBBA211A601CBA00E9B192 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92F79A232675B440001FC45D /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
