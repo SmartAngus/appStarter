@@ -3,3 +3,6 @@ APP_NODE_DEV=dev
 APP_NAME=中原特钢
 VERSIONCODE=1
 VERSIONNAME=1.0.0
+NSMicrophoneUsageDescription=APP需要访问你的麦克风
+NSCameraUsageDescription=APP需要访问你的相机
+NSPhotoLibraryUsageDescription=APP需要访问你的相册

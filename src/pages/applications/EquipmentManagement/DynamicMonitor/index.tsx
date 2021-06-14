@@ -13,8 +13,9 @@ import Touchable from '@/components/Touchable';
 import IconFont from '@/icons';
 import {Header} from 'react-native-elements';
 import RNEChartsPro from 'react-native-echarts-pro';
-import MyLineChart from "@/pages/applications/EquipmentManagement/DynamicMonitor/MyLineChart";
-import BarChartScreen from "@/pages/applications/EquipmentManagement/DynamicMonitor/BarChartScreen";
+import MyLineChart from '@/pages/applications/EquipmentManagement/DynamicMonitor/MyLineChart';
+import BarChartScreen from '@/pages/applications/EquipmentManagement/DynamicMonitor/BarChartScreen';
+import ImagePickerAndPhoto from '@/components/ImagePickerAndPhoto';
 // const RNEChartsPro = require('react-native-echarts-pro');
 
 const mapStateForProps = ({userInfo}: RootState) => ({
@@ -129,6 +130,9 @@ const DynamicMonitor: React.FC<IDynamicMonitorProps> = props => {
           </View>
           <View key={3} style={{height: 300, paddingTop: 25}}>
             <BarChartScreen />
+          </View>
+          <View>
+            <ImagePickerAndPhoto />
           </View>
         </WingBlank>
         <Modal
