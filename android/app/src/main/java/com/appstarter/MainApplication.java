@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.github.wuxudong.rncharts.MPAndroidChartPackage;
 import com.imagepicker.ImagePickerPackage;
+import org.reactnative.camera.RNCameraPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           // 集成charts，
           packages.add(new MPAndroidChartPackage());
+//           packages.add(new RNCameraPackage());
 //           packages.add(new ImagePickerPackage());
           return packages;
         }

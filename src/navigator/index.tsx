@@ -10,25 +10,28 @@ import Detail from '@/pages/Detail';
 import {RootState} from '@/models';
 import {connect, ConnectedProps} from 'react-redux';
 import Login from '@/pages/Login';
-import Home from '@/pages/Home/Home';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import UserDrawer from '@/pages/Home/UserDrawer';
-import EquipmentManagement from '@/pages/applications/EquipmentManagement';
 import SplashScreen from 'react-native-splash-screen';
+import {stackRoutes, modalStackRoutes} from '@/navigator/routes';
+import {navigationRef} from '@/utils';
 export type RootStackParamList = {
-  EquipmentManagement: {
-    screen?: string;
-  };
   Home: undefined;
   Detail: undefined;
+  DynamicMonitor: undefined;
+  InspectionEvaluation: undefined;
+  MaintenanceTask: undefined;
+  LubricationManagement: undefined;
+  EquipmentHandover: undefined;
+  [key: string]: undefined;
 };
 let RootStack = createStackNavigator<RootStackParamList>();
 
 export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
 
-const mapStateForProps = ({home, userInfo}: RootState) => ({
+const mapStateForProps = ({home, account}: RootState) => ({
   num: home.num,
-  username: userInfo.user?.username,
+  user: account.user,
 });
 
 const connector = connect(mapStateForProps);
@@ -39,7 +42,6 @@ type ModelState = ConnectedProps<typeof connector>;
 export type ModalStackParamList = {
   Root: undefined;
   Detail: undefined;
-  EquipmentManagement: undefined;
 };
 
 const ModalStack = createStackNavigator<ModalStackParamList>();
@@ -75,19 +77,33 @@ const ModalStackScreen = () => {
         ...TransitionPresets.ModalSlideFromBottomIOS,
         headerBackTitleVisible: false,
         headerTintColor: '#333',
+        headerStyle: {
+          backgroundColor: '#f4511e',
+        },
       }}>
       <ModalStack.Screen
         name="Root"
         component={Index}
         options={{headerShown: false}}
       />
-      <ModalStack.Screen name="Detail" component={Detail} />
+      {modalStackRoutes.map(route => {
+        const {text, icon, title, name, component, headerLeft, headerRight} =
+          route;
+        const stackOptions = {title, headerLeft, headerRight};
+        const stackProps = {key: name, name, component, options: stackOptions};
+        return <ModalStack.Screen {...stackProps} />;
+      })}
     </ModalStack.Navigator>
   );
 };
 
+interface IIndexProps {
+  navigation: RootStackNavigation;
+  route: any;
+}
+
 // 根导航
-const Index = () => {
+const Index = (props: IIndexProps) => {
   return (
     <RootStack.Navigator
       screenOptions={{
@@ -100,39 +116,31 @@ const Index = () => {
         },
       }}
       headerMode="float">
-      <RootStack.Screen
-        name="Home"
-        component={Home}
-        options={{
-          headerTitle: '首页',
-          headerStyleInterpolator: HeaderStyleInterpolators.forSlideLeft,
-        }}
-      />
-      <RootStack.Screen
-        name="EquipmentManagement"
-        component={EquipmentManagement}
-        options={{
-          headerTitle: '设备管理',
-          headerShown: false,
-          headerStyleInterpolator: HeaderStyleInterpolators.forSlideLeft,
-        }}
-      />
+      {stackRoutes.map(route => {
+        const {text, icon, title, name, component, headerLeft, headerRight} =
+          route;
+        const stackOptions = {title, headerLeft, headerRight};
+        const stackProps = {key: name, name, component, options: stackOptions};
+        return <RootStack.Screen {...stackProps} />;
+      })}
     </RootStack.Navigator>
   );
 };
 
 class Navigator extends React.Component<ModelState> {
   componentDidMount() {
-    const {num, username} = this.props;
-    console.log('navigation===', num, username);
+    const {num, account} = this.props;
+    console.log('navigation===', num, account);
     SplashScreen.hide();
   }
 
   render() {
-    const {username} = this.props;
+    const {user} = this.props;
+    const {token} = user;
+    console.log('navgator render>>>', token);
     return (
-      <NavigationContainer>
-        {username ? <DrawerStackScreen /> : <Login />}
+      <NavigationContainer ref={navigationRef}>
+        {token ? <DrawerStackScreen /> : <Login />}
       </NavigationContainer>
     );
   }

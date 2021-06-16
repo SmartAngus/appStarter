@@ -5,21 +5,19 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import {RootStackNavigation} from '@/navigator/index';
 import {WingBlank, Button, Modal} from '@ant-design/react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {hp} from '@/utils';
 import {RootState} from '@/models';
 import {connect, ConnectedProps} from 'react-redux';
-import Touchable from '@/components/Touchable';
-import IconFont from '@/icons';
-import {Header} from 'react-native-elements';
 import RNEChartsPro from 'react-native-echarts-pro';
 import MyLineChart from '@/pages/applications/EquipmentManagement/DynamicMonitor/MyLineChart';
 import BarChartScreen from '@/pages/applications/EquipmentManagement/DynamicMonitor/BarChartScreen';
 import ImagePickerAndPhoto from '@/components/ImagePickerAndPhoto';
-// const RNEChartsPro = require('react-native-echarts-pro');
+import NavigateTextBadge from '@/components/NavigateTextBadge';
 
-const mapStateForProps = ({userInfo}: RootState) => ({
-  userInfo: userInfo.user,
+const mapStateForProps = ({account, dynamicMonitor}: RootState) => ({
+  userInfo: account.user,
+  categories: dynamicMonitor.categories,
+  myCategories: dynamicMonitor.myCategories,
 });
 
 const connector = connect(mapStateForProps);
@@ -32,7 +30,6 @@ interface IDynamicMonitorProps extends ModelState {
 }
 
 const pieOption: any = {
-  color: this.colors,
   tooltip: {
     backgroundColor: 'rgba(255,255,255,0.8)',
     borderColor: '#668BEE',
@@ -102,16 +99,42 @@ const pieOption: any = {
 
 const DynamicMonitor: React.FC<IDynamicMonitorProps> = props => {
   const [visible, setVisible] = useState(false);
-  const {navigation} = props;
+  const {navigation, categories, myCategories} = props;
+  const payload = {
+    createTimeStart: '2021-06-01 00:00:00',
+    createTimeEnd: '2021-06-16 23:59:59',
+  };
   useEffect(() => {
     console.log('>>>>>DynamicMonitor>>>>>>');
+    console.log(categories);
+    console.log(myCategories);
+    navigation.setOptions({
+      headerRight: () => (
+        <NavigateTextBadge name={'haha'} showStatus={true} status="success" />
+      ),
+    });
     // 设置当前页面的左边组件
   }, [navigation]);
+
+  useEffect(() => {
+    console.log('>>>>获取报表数据');
+    const {dispatch} = props;
+    console.log(dispatch);
+    dispatch({
+      type: 'dynamicMonitor/getInspection',
+      payload: {
+        ...payload,
+      },
+    });
+  }, [payload]);
   const onClose = () => {
     setVisible(false);
   };
   const openDetail = () => {
-    navigation.navigate('Detail');
+    navigation.navigate('DynamicMonitor/Detail');
+  };
+  const getPhotos = (photos: any) => {
+    // console.log('>>>getPhotos', photos);
   };
   return (
     <View style={{marginTop: 60}}>
@@ -132,7 +155,7 @@ const DynamicMonitor: React.FC<IDynamicMonitorProps> = props => {
             <BarChartScreen />
           </View>
           <View>
-            <ImagePickerAndPhoto />
+            <ImagePickerAndPhoto getPhotos={getPhotos}/>
           </View>
         </WingBlank>
         <Modal

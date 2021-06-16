@@ -1,18 +1,16 @@
 import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
-import {connect, ConnectedProps} from 'react-redux';
-import {RootState} from '@/models';
 import {RootStackNavigation} from '@/navigator';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {ScrollView, Text, View, StyleSheet} from 'react-native';
+import {Grid} from '@ant-design/react-native';
 import IconFont from '@/icons';
-import Carousel from '@/pages/Home/Carousel';
-import Guesses from '@/pages/Home/Gusses';
-import Channels from '@/pages/Home/Channels';
+import {RootState} from '@/models';
+import {connect, ConnectedProps} from 'react-redux';
+import Touchable from '@/components/Touchable';
+import {stackRoutes} from '@/navigator/routes';
+import {Button} from 'react-native-elements';
 
-const mapStateForProps = ({home, loading}: RootState) => ({
-  num: home.num,
-  loading: loading.effects['home/addAsync'],
-  channels: home.channels,
+const mapStateForProps = ({account}: RootState) => ({
+  user: account.user,
 });
 
 const connector = connect(mapStateForProps);
@@ -24,49 +22,113 @@ interface IHomeProps extends ModelState {
   navigation: RootStackNavigation;
 }
 
-class Home extends React.Component<IHomeProps> {
+const HomeHeaderLeft = ({navigation}: any) => {
+  const openDrawer = () => {
+    console.log('打开用户信息');
+    navigation.toggleDrawer();
+  };
+  return (
+    <Touchable>
+      <Button
+        onPress={() => openDrawer()}
+        icon={<IconFont name="iconbianjifankui" size={15} color="white" />}
+        title=""
+        type="clear"
+        titleStyle={{paddingLeft: 4, color: '#fff'}}
+      />
+    </Touchable>
+  );
+};
+
+class Index extends React.Component<IHomeProps> {
   componentDidMount() {
-    const {dispatch} = this.props;
-    // home是namespace
-    dispatch({type: 'home/fetchChannels'});
+    const {navigation} = this.props;
+    // 设置当前页面的左边组件
+    navigation.setOptions({
+      headerLeft: () => {
+        return <HomeHeaderLeft navigation={navigation} />;
+      },
+    });
   }
 
-  handlePress() {
-    console.log('---', this.props);
-    this.props.navigation.navigate('Detail');
-  }
-  handleAdd = () => {
-    const {dispatch} = this.props;
-    // home是namespace
-    dispatch({type: 'home/add', payload: {num: 10}});
-  };
-  handleAddAsync = () => {
-    const {dispatch} = this.props;
-    // home是namespace
-    dispatch({type: 'home/addAsync', payload: {num: 6}});
-  };
-  renderItem = () => {
-    const {loading} = this.props;
-    return (
-      <View>
-        <Text>item</Text>
-        <Text>item</Text>
-        <Text>item</Text>
-        <Text>{loading}</Text>
-      </View>
-    );
-  };
-  render() {
+  onPressItem(item, index) {
     const {navigation} = this.props;
+    console.log('>>>>>>nav>>>', item);
+    navigation.navigate(item.name, {});
+    // navigation.navigate('EquipmentManagement', {
+    //   screen: 'LubricationManagement',
+    //   params: { user: 'jane' },
+    // });
+    // navigation.navigate('Detail', {item});
+  }
+  render() {
+    const {user} = this.props;
+    const {name} = user;
     return (
-      <SafeAreaView>
-        <View>
-          <Text>item</Text>
-          <Text>item</Text>
-          <Text>item</Text>
+      <ScrollView>
+        <View style={[{margin: 10}]}>
+          <Text>{name}</Text>
         </View>
-      </SafeAreaView>
+        <View style={[{padding: 10}]}>
+          <Grid
+            data={stackRoutes}
+            hasLine={false}
+            onPress={this.onPressItem.bind(this)}
+          />
+        </View>
+      </ScrollView>
     );
   }
 }
-export default connector(Home);
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    margin: 10,
+    padding: 10,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    shadowColor: '#ccc',
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    // elevation: 20,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 8,
+    marginRight: 10,
+    backgroundColor: '#dedede',
+  },
+  rightContainer: {
+    flex: 1,
+    justifyContent: 'space-around',
+  },
+  title: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  remark: {
+    backgroundColor: '#f8f8f8',
+    padding: 5,
+    marginBottom: 5,
+  },
+  bottom: {
+    flexDirection: 'row',
+  },
+  playedView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 20,
+  },
+  playingView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  number: {
+    marginLeft: 5,
+  },
+});
+
+export default connector(Index);

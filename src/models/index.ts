@@ -1,13 +1,15 @@
 import home from './home';
-import userInfo from './userInfo';
+import account from './account';
+import dynamicMonitorModel from '@/models/equipmentManagement/dynamicMonitor';
 import {DvaLoadingState} from 'dva-loading-ts';
 
-const models = [home, userInfo];
+const models = [home, account, dynamicMonitorModel];
 
 export type RootState = {
   home: typeof home.state;
   loading: DvaLoadingState;
-  userInfo: typeof userInfo.state;
+  account: typeof account.state;
+  dynamicMonitor: typeof dynamicMonitorModel.state; // 设备管理->动态监控
 };
 
 export default models;

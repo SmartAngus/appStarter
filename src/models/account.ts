@@ -3,12 +3,15 @@ import {Reducer} from 'redux';
 import Toast from 'react-native-root-toast';
 import {goBack} from '@/utils/index';
 import storage, {load} from '@/utils/storage';
-import {login} from '@/apis';
+import {fetchLogin, fetchAccountInfo} from '@/apis/account';
 
 export interface IUser {
-  username: string;
+  account: string;
   password: string;
   avatar?: string;
+  loginType?: number;
+  token?: string;
+  [key: string]: any;
 }
 
 export interface UserModelState {
@@ -16,12 +19,13 @@ export interface UserModelState {
 }
 
 export interface UserModel extends Model {
-  namespace: 'userInfo';
+  namespace: 'account';
   state: UserModelState;
   effects: {
     login: Effect;
     logout: Effect;
     loadStorage: Effect;
+    fetchUserInfo: Effect;
   };
   reducers: {
     setState: Reducer<UserModelState>;
@@ -31,13 +35,14 @@ export interface UserModel extends Model {
 
 const initalState = {
   user: {
-    username: '',
+    loginType: undefined,
+    account: '',
     password: '',
   },
 };
 
 const userModel: UserModel = {
-  namespace: 'userInfo',
+  namespace: 'account',
   state: initalState,
   reducers: {
     setState(state, {payload}) {
@@ -49,41 +54,53 @@ const userModel: UserModel = {
   },
   effects: {
     *login({payload}, {call, put}) {
-      console.log('>>>>payload', payload);
       try {
-        const res = yield call(login, payload);
-        const {data, code, msg} = res.data;
-        console.log(data, code, msg);
-        if (code === 200) {
-          yield put({
-            type: 'setState',
-            payload: {
-              user: data,
+        const {account} = payload;
+        const res = yield call(fetchLogin, payload);
+        yield put({
+          type: 'setState',
+          payload: {
+            user: {
+              ...payload,
+              token: res,
             },
-          });
-          storage.save({
-            key: 'user',
-            data,
-          });
-          goBack();
-        } else {
-          Toast.show(msg, {
-            duration: Toast.durations.LONG,
-            position: Toast.positions.CENTER,
-            shadow: true,
-            animation: true,
-          });
-          console.log(msg);
-        }
+          },
+        });
+        console.log('>>>登录成功');
+        console.log('>>>>正在获取用户信息....');
+        const userInfo = yield call(fetchAccountInfo, {menuType: 3, account});
+        yield put({
+          type: 'setState',
+          payload: {
+            user: {
+              ...userInfo,
+              token: res,
+            },
+          },
+        });
+        storage.save({
+          key: 'user',
+          data: {
+            user: {
+              ...userInfo,
+              token: res,
+            },
+          },
+        });
+        // goBack();
       } catch (e) {
         console.log(e);
       }
+    },
+    *fetchUserInfo({payload}, {call, put}) {
+      const res = yield call(fetchAccountInfo, payload);
+      console.log(res);
     },
     *logout(_, {put}) {
       yield put({
         type: 'setState',
         payload: {
-          user: undefined,
+          user: {},
         },
       });
       storage.save({
@@ -94,11 +111,11 @@ const userModel: UserModel = {
     *loadStorage(_, {put, call}) {
       try {
         const user = yield call(load, {key: 'user'});
-        console.log('>>>user', user);
+        console.log('>>>>loadStorage>>>', user);
         yield put({
           type: 'setState',
           payload: {
-            user,
+            ...user,
           },
         });
       } catch (error) {

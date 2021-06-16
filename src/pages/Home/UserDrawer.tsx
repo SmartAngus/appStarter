@@ -12,8 +12,8 @@ import {RootStackNavigation} from '@/navigator';
 import {Avatar, Button as EButton} from 'react-native-elements';
 import IconFont from '@/icons';
 
-const mapStateForProps = ({userInfo}: RootState) => ({
-  user: userInfo.user,
+const mapStateForProps = ({account}: RootState) => ({
+  user: account.user,
 });
 
 const connector = connect(mapStateForProps);
@@ -27,11 +27,12 @@ const avatar =
   'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Finews.gtimg.com%2Fnewsapp_match%2F0%2F11041710134%2F0.jpg&refer=http%3A%2F%2Finews.gtimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1620216801&t=63be6be40f5a156d07aef3606dde3648';
 function UserDrawer(props: IUserDrawerProps) {
   const {user, navigation, dispatch} = props;
+  const {name: userName, roleName} = user;
   // 推出按钮
   const onLogoutPress = () => {
     console.log('>>>退出登录');
     dispatch({
-      type: 'userInfo/logout',
+      type: 'account/logout',
     });
   };
   return (
@@ -51,7 +52,8 @@ function UserDrawer(props: IUserDrawerProps) {
           <View>
             <WhiteSpace />
             <WingBlank />
-            <Text>{user?.username}</Text>
+            <Text>{userName}</Text>
+            <Text>{roleName}</Text>
           </View>
         </View>
         <View>

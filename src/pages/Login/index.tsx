@@ -1,34 +1,28 @@
 import React from 'react';
-import {ScrollView, Text, TextInput, View, StyleSheet} from 'react-native';
+import {ScrollView, Text, View, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {
-  Button,
-  Toast,
-  WhiteSpace,
-  WingBlank,
-  List,
-  InputItem,
-} from '@ant-design/react-native';
-import Config from 'react-native-config';
+import {Button, WhiteSpace, WingBlank} from '@ant-design/react-native';
 import {ConnectedProps, connect} from 'react-redux';
 import {RootState} from '@/models';
 import {Field, Formik} from 'formik';
 import * as Yup from 'yup';
 import Input from '@/components/Input';
+import {tranRSA} from '@/utils/common';
 
 interface Values {
-  username: string;
+  account: string;
   password: string;
 }
 
 const initialValues: Values = {
-  username: '',
+  account: '',
   password: '',
 };
 
-const mapStateToProps = ({loading}: RootState) => {
+const mapStateToProps = ({loading, account}: RootState) => {
   return {
-    loading: loading.effects['userInfo/login'],
+    loading: loading.effects['account/login'],
+    account,
   };
 };
 
@@ -37,21 +31,30 @@ const connector = connect(mapStateToProps);
 type ModelState = ConnectedProps<typeof connector>;
 
 const validationSchema = Yup.object().shape({
-  username: Yup.string().trim().required('请输入您的账号'),
+  account: Yup.string().trim().required('请输入您的账号'),
   password: Yup.string().trim().required('请输入密码'),
 });
 
 class Login extends React.Component<ModelState> {
   onSubmit = (values: Values) => {
-    console.log('>>>>login', values);
+    console.log('>>>>login>>>', values);
     const {dispatch} = this.props;
+    const {account, password} = values;
+    const payload = {
+      account: account.toLowerCase(),
+      password: tranRSA(password),
+    };
+    // 登录
     dispatch({
-      type: 'userInfo/login',
-      payload: values,
+      type: 'account/login',
+      payload,
     });
+    // 获取用户信息
+    console.log('获取用户信息');
   };
   render() {
-    const {loading} = this.props;
+    const {loading, account} = this.props;
+    console.log('>>>login page>>>userInfo>>', account);
     return (
       <SafeAreaView>
         <ScrollView keyboardShouldPersistTaps="handled">
@@ -65,7 +68,7 @@ class Login extends React.Component<ModelState> {
                 return (
                   <View>
                     <Field
-                      name="username"
+                      name="account"
                       placeholder="请输入账号"
                       component={Input}
                     />

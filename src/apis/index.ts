@@ -1,6 +1,6 @@
 import {BASE_URI} from '@/config';
 import axios from 'axios';
-import {IUser} from '@/models/userInfo';
+import {IUser} from '@/models/account';
 
 export const GUESS_URL = BASE_URI + '/love/all';
 // 首页列表
