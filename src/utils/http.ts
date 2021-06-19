@@ -63,6 +63,7 @@ instance.interceptors.response.use(
     loading.stop();
     const {data: res} = response;
     const {code, data, msg} = res;
+    // console.log(code, res);
 
     switch (code) {
       case 1000:
@@ -72,7 +73,7 @@ instance.interceptors.response.use(
       // there would be a jump logic to deal with.
       case 2002:
         // token is out of date or not valid
-        // store.dispatch({type: 'RESET'});
+        store.dispatch({type: 'account/reset'});
         return Promise.reject(data);
       default:
         Toast.info(msg, 1.5);

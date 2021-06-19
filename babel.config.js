@@ -17,6 +17,7 @@ module.exports = {
           '@/config': './src/config',
           '@/apis': './src/apis',
           '@/app': './src/app',
+          '@/assets': './src/assets',
         },
       },
     ],

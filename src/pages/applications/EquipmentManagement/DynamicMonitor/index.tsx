@@ -27,6 +27,7 @@ type ModelState = ConnectedProps<typeof connector>;
 
 interface IDynamicMonitorProps extends ModelState {
   navigation: RootStackNavigation;
+  route: any;
 }
 
 const pieOption: any = {
@@ -99,15 +100,16 @@ const pieOption: any = {
 
 const DynamicMonitor: React.FC<IDynamicMonitorProps> = props => {
   const [visible, setVisible] = useState(false);
-  const {navigation, categories, myCategories} = props;
+  const {navigation, categories, myCategories, route} = props;
+  const {
+    params: {qrdata},
+  } = route;
   const payload = {
     createTimeStart: '2021-06-01 00:00:00',
     createTimeEnd: '2021-06-16 23:59:59',
   };
   useEffect(() => {
     console.log('>>>>>DynamicMonitor>>>>>>');
-    console.log(categories);
-    console.log(myCategories);
     navigation.setOptions({
       headerRight: () => (
         <NavigateTextBadge name={'haha'} showStatus={true} status="success" />
@@ -115,6 +117,10 @@ const DynamicMonitor: React.FC<IDynamicMonitorProps> = props => {
     });
     // 设置当前页面的左边组件
   }, [navigation]);
+
+  useEffect(() => {
+    console.log(route);
+  }, [route, qrdata]);
 
   useEffect(() => {
     console.log('>>>>获取报表数据');
@@ -126,12 +132,15 @@ const DynamicMonitor: React.FC<IDynamicMonitorProps> = props => {
         ...payload,
       },
     });
-  }, [payload]);
+  }, []);
   const onClose = () => {
     setVisible(false);
   };
   const openDetail = () => {
     navigation.navigate('DynamicMonitor/Detail');
+  };
+  const scanQRCode = () => {
+    navigation.navigate('DynamicMonitor/ScanScreen', {});
   };
   const getPhotos = (photos: any) => {
     // console.log('>>>getPhotos', photos);
@@ -154,8 +163,11 @@ const DynamicMonitor: React.FC<IDynamicMonitorProps> = props => {
           <View key={3} style={{height: 300, paddingTop: 25}}>
             <BarChartScreen />
           </View>
+          <View style={{height: 200, paddingTop: 25}}>
+            <ImagePickerAndPhoto getPhotos={getPhotos} />
+          </View>
           <View>
-            <ImagePickerAndPhoto getPhotos={getPhotos}/>
+            <Button onPress={scanQRCode}>扫一扫</Button>
           </View>
         </WingBlank>
         <Modal

@@ -11,6 +11,7 @@ import InspectionEvaluation from '@/pages/applications/EquipmentManagement/Inspe
 import LubricationManagement from '@/pages/applications/EquipmentManagement/LubricationManagement';
 import EquipmentHandover from '@/pages/applications/EquipmentManagement/EquipmentHandover';
 import NavigateTextBadge from '@/components/NavigateTextBadge';
+import ScanScreen from '@/pages/ScanScreen';
 
 function NavigateText({
   routeName,
@@ -177,6 +178,9 @@ export const stackRoutes = [
   },
 ];
 
+/**
+ * 配置所有需要modal方式打开的路由
+ */
 export const modalStackRoutes = [
   {
     text: '设备交接班详情',
@@ -194,6 +198,23 @@ export const modalStackRoutes = [
       />
     ),
     headerRight: () => <NavigateTextBadge />,
+  },
+  {
+    text: '扫描二维码',
+    icon: <IconFont name="iconbianjifankui" size={32} />,
+    name: 'DynamicMonitor/ScanScreen',
+    title: '扫描二维码',
+    component: ScanScreen,
+    show: true,
+    headerLeft: () => (
+      <NavigateText
+        routeName={'DynamicMonitor'}
+        name={'返回'}
+        iconName={'iconbaojingcishu'}
+        params={{}}
+      />
+    ),
+    headerRight: () => <View />,
   },
 ];
 

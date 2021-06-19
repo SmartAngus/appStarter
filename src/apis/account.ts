@@ -16,8 +16,13 @@ export function fetchLogout(params) {
   return client.post('/system/user/logout', params);
 }
 // 修改密码
-export function fetchUpdatePassword(params) {
-  return client.post('/system/user/update/password', params);
+interface UpdatePasswordParamProps {
+  account: string;
+  newPassword: string;
+  oldPassword: string;
+}
+export function fetchUpdatePassword(params: UpdatePasswordParamProps) {
+  return client.post('/system/user/updatePassword', params);
 }
 
 // 修改自定义首页菜单

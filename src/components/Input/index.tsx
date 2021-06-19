@@ -8,9 +8,20 @@ interface IProps extends TextInputProps {
 }
 
 class Input extends React.PureComponent<IProps> {
+  state: any;
+  constructor(props: IProps) {
+    super(props);
+    const {field} = props;
+    this.state = {
+      value: field.value,
+    };
+  }
+  componentDidMount() {}
+
   onChangeText = (value: string) => {
     const {form, field, onChangeText} = this.props;
     form.handleChange(field.name)(value);
+    this.setState({value});
     if (onChangeText) {
       onChangeText(value);
     }
@@ -18,11 +29,13 @@ class Input extends React.PureComponent<IProps> {
 
   render() {
     const {form, field, ...rest} = this.props;
+    const {value} = this.state;
     return (
       <View style={styles.container}>
         <TextInput
           style={styles.input}
           {...rest}
+          defaultValue={value}
           onChangeText={form.handleChange(field.name)}
           onBlur={form.handleBlur(field.name)}
         />

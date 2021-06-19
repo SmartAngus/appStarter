@@ -41,8 +41,6 @@ const initialState = {
   categories: [],
 };
 
-const CATEGORY_URL = '';
-
 const dynamicMonitorModel: DynamicMonitorModel = {
   namespace: 'dynamicMonitor',
   state: initialState,

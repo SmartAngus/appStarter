@@ -32,7 +32,7 @@ type ModelState = ConnectedProps<typeof connector>;
 
 const validationSchema = Yup.object().shape({
   account: Yup.string().trim().required('请输入您的账号'),
-  password: Yup.string().trim().required('请输入密码'),
+  password: Yup.string().trim().min(6, '密码长度最小为6').max(12).required('请输入密码'),
 });
 
 class Login extends React.Component<ModelState> {

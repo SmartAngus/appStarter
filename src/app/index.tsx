@@ -4,17 +4,23 @@ import store from '@/utils/dva';
 import Navigator from '@/navigator';
 import {StatusBar} from 'react-native';
 import {Provider} from '@ant-design/react-native';
-// import '@/utils/http';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 class App extends React.PureComponent {
   render() {
     return (
-      <ReduxProvider store={store}>
-        <Provider>
-          <Navigator />
-          <StatusBar backgroundColor="transparent" />
-        </Provider>
-      </ReduxProvider>
+      <SafeAreaProvider>
+        <ReduxProvider store={store}>
+          <Provider>
+            <Navigator />
+            <StatusBar
+              backgroundColor="transparent"
+              barStyle="light-content"
+              translucent
+            />
+          </Provider>
+        </ReduxProvider>
+      </SafeAreaProvider>
     );
   }
 }

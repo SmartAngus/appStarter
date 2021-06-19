@@ -1,21 +1,25 @@
 import {Model, Effect, SubscriptionsMapObject} from 'dva-core-ts';
 import {Reducer} from 'redux';
 import Toast from 'react-native-root-toast';
-import {goBack} from '@/utils/index';
+import {goBack, navigate} from '@/utils/index';
 import storage, {load} from '@/utils/storage';
-import {fetchLogin, fetchAccountInfo} from '@/apis/account';
+import {
+  fetchLogin,
+  fetchAccountInfo,
+  fetchUpdatePassword,
+} from '@/apis/account';
 
 export interface IUser {
   account: string;
   password: string;
   avatar?: string;
   loginType?: number;
-  token?: string;
+  token: string;
   [key: string]: any;
 }
 
 export interface UserModelState {
-  user?: IUser;
+  user: IUser;
 }
 
 export interface UserModel extends Model {
@@ -26,14 +30,16 @@ export interface UserModel extends Model {
     logout: Effect;
     loadStorage: Effect;
     fetchUserInfo: Effect;
+    fetchUpdatePassword: Effect;
   };
   reducers: {
     setState: Reducer<UserModelState>;
+    reset: Reducer<UserModelState>;
   };
   subscriptions: SubscriptionsMapObject;
 }
 
-const initalState = {
+const initalState: any = {
   user: {
     loginType: undefined,
     account: '',
@@ -49,6 +55,11 @@ const userModel: UserModel = {
       return {
         ...state,
         ...payload,
+      };
+    },
+    reset() {
+      return {
+        ...initalState,
       };
     },
   },
@@ -95,6 +106,15 @@ const userModel: UserModel = {
     *fetchUserInfo({payload}, {call, put}) {
       const res = yield call(fetchAccountInfo, payload);
       console.log(res);
+    },
+    *fetchUpdatePassword({payload}, {call, put}) {
+      try {
+        console.log('fetchUpdatePassword>>>', payload);
+        const res = yield call(fetchUpdatePassword, payload);
+        console.log('fetchUpdatePassword>>>', res);
+      } catch (e) {
+        console.log('---->', e);
+      }
     },
     *logout(_, {put}) {
       yield put({

@@ -2,7 +2,6 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {
   createStackNavigator,
-  HeaderStyleInterpolators,
   StackNavigationProp,
   TransitionPresets,
 } from '@react-navigation/stack';
@@ -18,13 +17,14 @@ import {navigationRef} from '@/utils';
 export type RootStackParamList = {
   Home: undefined;
   Detail: undefined;
-  DynamicMonitor: undefined;
+  DynamicMonitor: any;
   InspectionEvaluation: undefined;
   MaintenanceTask: undefined;
   LubricationManagement: undefined;
   EquipmentHandover: undefined;
   [key: string]: undefined;
 };
+
 let RootStack = createStackNavigator<RootStackParamList>();
 
 export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
@@ -42,6 +42,7 @@ type ModelState = ConnectedProps<typeof connector>;
 export type ModalStackParamList = {
   Root: undefined;
   Detail: undefined;
+  [key: string]: undefined;
 };
 
 const ModalStack = createStackNavigator<ModalStackParamList>();
@@ -51,9 +52,38 @@ export type ModalSTackNavigation = StackNavigationProp<ModalStackParamList>;
 export type DrawerStackParamList = {
   UserInfo: undefined;
   RootHome: undefined;
+  [key: string]: undefined;
 };
 
 const DrawerStack = createDrawerNavigator<DrawerStackParamList>();
+
+const rootScreenOptions: any = {
+  headerStyle: {
+    backgroundColor: '#096dd9',
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+    fontSize: 15,
+    textAlign: 'center',
+  },
+};
+
+const modalScreenOptions: any = {
+  headerTitleAlign: 'center',
+  gestureEnabled: true,
+  ...TransitionPresets.ModalSlideFromBottomIOS,
+  headerBackTitleVisible: true,
+  headerTintColor: '#fff',
+  headerStyle: {
+    backgroundColor: '#096dd9',
+  },
+  headerTitleStyle: {
+    fontWeight: 'bold',
+    fontSize: 15,
+    textAlign: 'center',
+  },
+};
 
 // 抽屉导航
 const DrawerStackScreen = () => {
@@ -71,24 +101,14 @@ const ModalStackScreen = () => {
     <ModalStack.Navigator
       mode="modal"
       headerMode="screen"
-      screenOptions={{
-        headerTitleAlign: 'center',
-        gestureEnabled: true,
-        ...TransitionPresets.ModalSlideFromBottomIOS,
-        headerBackTitleVisible: false,
-        headerTintColor: '#333',
-        headerStyle: {
-          backgroundColor: '#f4511e',
-        },
-      }}>
+      screenOptions={modalScreenOptions}>
       <ModalStack.Screen
         name="Root"
         component={Index}
         options={{headerShown: false}}
       />
       {modalStackRoutes.map(route => {
-        const {text, icon, title, name, component, headerLeft, headerRight} =
-          route;
+        const {title, name, component, headerLeft, headerRight} = route;
         const stackOptions = {title, headerLeft, headerRight};
         const stackProps = {key: name, name, component, options: stackOptions};
         return <ModalStack.Screen {...stackProps} />;
@@ -97,28 +117,12 @@ const ModalStackScreen = () => {
   );
 };
 
-interface IIndexProps {
-  navigation: RootStackNavigation;
-  route: any;
-}
-
 // 根导航
-const Index = (props: IIndexProps) => {
+const Index = () => {
   return (
-    <RootStack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: '#f4511e',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-      }}
-      headerMode="float">
+    <RootStack.Navigator screenOptions={rootScreenOptions} headerMode="float">
       {stackRoutes.map(route => {
-        const {text, icon, title, name, component, headerLeft, headerRight} =
-          route;
+        const {title, name, component, headerLeft, headerRight} = route;
         const stackOptions = {title, headerLeft, headerRight};
         const stackProps = {key: name, name, component, options: stackOptions};
         return <RootStack.Screen {...stackProps} />;
@@ -127,17 +131,18 @@ const Index = (props: IIndexProps) => {
   );
 };
 
+/**
+ * 应用根组件
+ */
 class Navigator extends React.Component<ModelState> {
   componentDidMount() {
-    const {num, account} = this.props;
-    console.log('navigation===', num, account);
+    // 隐藏启动动画
     SplashScreen.hide();
   }
 
   render() {
     const {user} = this.props;
     const {token} = user;
-    console.log('navgator render>>>', token);
     return (
       <NavigationContainer ref={navigationRef}>
         {token ? <DrawerStackScreen /> : <Login />}
