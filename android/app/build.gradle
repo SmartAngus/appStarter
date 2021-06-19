@@ -139,7 +139,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode project.env.get("VERSIONCODE").toInteger()
         versionName project.env.get("VERSIONNAME")
-        missingDimensionStrategy 'react-native-camera', 'general' // 配置使用相机关键的一个设置https://stackoverflow.com/questions/55442723/react-native-camera-error-when-compiling-android
+        missingDimensionStrategy 'react-native-camera', 'mlkit' // 配置使用相机关键的一个设置https://stackoverflow.com/questions/55442723/react-native-camera-error-when-compiling-android
     }
     splits {
         abi {
